@@ -1,2 +1,2 @@
 def sum_numbers(numbers=None):
-    pass
+    return sum(numbers if numbers is not None else range(1, 101))
