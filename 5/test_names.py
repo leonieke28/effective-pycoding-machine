@@ -1,6 +1,11 @@
-from names import (NAMES, dedup_and_title_case_names,
-                   sort_by_surname_desc, shortest_first_name)
+from names import (
+    NAMES,
+    dedup_and_title_case_names,
+    sort_by_surname_desc,
+    shortest_first_name,
+)
 
+# fmt: off
 PY_CONTENT_CREATORS = ['brian okken', 'michael kennedy', 'trey hunner',
                        'matt harrison', 'julian sequeira', 'dan bader',
                        'michael kennedy', 'brian okken', 'dan bader']
