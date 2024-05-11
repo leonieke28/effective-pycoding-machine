@@ -2,14 +2,13 @@ from datetime import datetime
 import os
 import urllib.request
 
-SHUTDOWN_EVENT = 'Shutdown initiated'
+SHUTDOWN_EVENT = "Shutdown initiated"
 
 # prep: read in the logfile
 tmp = os.getenv("TMP", "/tmp")
-logfile = os.path.join(tmp, 'log')
+logfile = os.path.join(tmp, "log")
 urllib.request.urlretrieve(
-    'https://bites-data.s3.us-east-2.amazonaws.com/messages.log',
-    logfile
+    "https://bites-data.s3.us-east-2.amazonaws.com/messages.log", logfile
 )
 
 with open(logfile) as f:
@@ -18,21 +17,37 @@ with open(logfile) as f:
 
 # for you to code:
 
+
 def convert_to_datetime(line):
     """TODO 1:
-       Extract timestamp from logline and convert it to a datetime object.
-       For example calling the function with:
-       INFO 2014-07-03T23:27:51 supybot Shutdown complete.
-       returns:
-       datetime(2014, 7, 3, 23, 27, 51)
+    Extract timestamp from logline and convert it to a datetime object.
+    For example calling the function with:
+    INFO 2014-07-03T23:27:51 supybot Shutdown complete.
+    returns:
+    datetime(2014, 7, 3, 23, 27, 51)
     """
-    pass
+    parts = line.split(" ")
+    timestamp = parts[1]
+    dt = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
+    return dt
 
 
 def time_between_shutdowns(loglines):
     """TODO 2:
-       Extract shutdown events ("Shutdown initiated") from loglines and
-       calculate the timedelta between the first and last one.
-       Return this datetime.timedelta object.
+    Extract shutdown events ("Shutdown initiated") from loglines and
+    calculate the timedelta between the first and last one.
+    Return this datetime.timedelta object.
     """
-    pass
+    shutdown_events = []
+    for line in loglines:
+        if "Shutdown initiated" in line:
+            shutdown_events.append(line)
+
+    first_event = datetime.strptime(
+        shutdown_events[0].split(" ")[1], "%Y-%m-%dT%H:%M:%S"
+    )
+    last_event = datetime.strptime(
+        shutdown_events[-1].split(" ")[1], "%Y-%m-%dT%H:%M:%S"
+    )
+    time_difference = last_event - first_event
+    return time_difference
