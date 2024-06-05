@@ -5,17 +5,17 @@ from karma import User, Transaction
 
 @pytest.fixture
 def bob():
-    return User('bob')
+    return User("bob")
 
 
 @pytest.fixture
 def tim():
-    return User('tim')
+    return User("tim")
 
 
 @pytest.fixture
 def alice():
-    return User('alice')
+    return User("alice")
 
 
 @pytest.fixture
@@ -30,9 +30,9 @@ def transactions(bob, tim, alice):
 
 
 def test_init(transactions, bob, tim, alice):
-    assert alice.name == 'alice'
-    assert bob.name == 'bob'
-    assert tim.name == 'tim'
+    assert alice.name == "alice"
+    assert bob.name == "bob"
+    assert tim.name == "tim"
     assert alice._transactions == []
     assert bob._transactions == []
     assert tim._transactions == []
@@ -67,9 +67,9 @@ def test_fans_property(transactions, bob, tim, alice):
 
 
 def test_str_dunder(transactions, bob, tim, alice):
-    assert str(tim) == 'tim has a karma of 0 and 0 fans' 
+    assert str(tim) == "tim has a karma of 0 and 0 fans"
     tim + transactions[4]
-    assert str(tim) == 'tim has a karma of 2 and 1 fan'
+    assert str(tim) == "tim has a karma of 2 and 1 fan"
     alice + transactions[1]
     alice + transactions[3]
-    assert str(alice) == 'alice has a karma of 6 and 2 fans'
+    assert str(alice) == "alice has a karma of 6 and 2 fans"
